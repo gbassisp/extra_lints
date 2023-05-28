@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:extra_lints/extra_lints.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('ExtraLints', () {
+  group('ExtraLinter', () {
     test('can be instantiated', () {
-      expect(ExtraLints(), isNotNull);
+      expect(createPlugin(), isNotNull);
     });
   });
 }
