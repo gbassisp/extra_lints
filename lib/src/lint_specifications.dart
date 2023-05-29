@@ -27,7 +27,7 @@ class ConstructorSpecification extends LintSpecification {
 
   // TODO(gbassi): check class extends Widget/State
   @override
-  bool isSatisfiedBy(AstNode element) => element is ConstructorInitializer;
+  bool isSatisfiedBy(AstNode element) => element is InstanceCreationExpression;
 }
 
 /// Specification used in a function returning a Widget
@@ -37,7 +37,11 @@ class FunctionSpecification extends LintSpecification {
 
   // TODO(gbassi): check function returns Widget
   @override
-  bool isSatisfiedBy(AstNode element) => element is FunctionBody;
+  bool isSatisfiedBy(AstNode element) =>
+      element is FunctionExpressionInvocation &&
+      element.staticElement?.returnType
+              .getDisplayString(withNullability: false) ==
+          'Widget';
 }
 
 /// Specification: ast is a string literal used inside the definition of a
@@ -50,18 +54,20 @@ class StringLiteralInsideWidgetSpecification extends LintSpecification {
   @override
   bool isSatisfiedBy(AstNode element) {
     final isNotImport = ImportSpecification().not();
-    final isStringLiteral = StringLiteralSpecification();
+    // final isStringLiteral = StringLiteralSpecification();
     final isConstructor = ConstructorSpecification();
     final isFunction = FunctionSpecification();
 
-    final specification = isNotImport.and(isStringLiteral).and(
-          AnySpecification(
-            [
-              isConstructor,
-              isFunction,
-            ],
-          ),
-        );
+    final specification = isNotImport
+        // .and(isStringLiteral)
+        .and(
+      AnySpecification(
+        [
+          isConstructor,
+          isFunction,
+        ],
+      ),
+    );
     return specification.isSatisfiedBy(element);
   }
 }

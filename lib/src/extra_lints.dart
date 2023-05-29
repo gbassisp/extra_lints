@@ -65,7 +65,27 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
     context.registry.addStringLiteral((node) {
       final w = node.thisOrAncestorMatching<AstNode>(
         (p0) {
-          return StringLiteralInsideWidgetSpecification().isSatisfiedBy(p0);
+          final r = StringLiteralInsideWidgetSpecification().isSatisfiedBy(p0);
+          print('${p0.runtimeType} '
+              'at ${resolver.source.shortName} '
+              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r');
+          return r;
+        },
+      );
+
+      if (w != null) {
+        reporter.reportErrorForNode(code, node);
+      }
+    });
+    // string interpolation registry
+    context.registry.addStringInterpolation((node) {
+      final w = node.thisOrAncestorMatching<AstNode>(
+        (p0) {
+          final r = StringLiteralInsideWidgetSpecification().isSatisfiedBy(p0);
+          print('${p0.runtimeType} '
+              'at ${resolver.source.shortName} '
+              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r');
+          return r;
         },
       );
 

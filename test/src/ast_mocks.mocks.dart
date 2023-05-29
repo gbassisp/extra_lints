@@ -7,6 +7,7 @@ import 'package:analyzer/dart/ast/ast.dart' as _i3;
 import 'package:analyzer/dart/ast/precedence.dart' as _i4;
 import 'package:analyzer/dart/ast/syntactic_entity.dart' as _i5;
 import 'package:analyzer/dart/ast/token.dart' as _i2;
+import 'package:analyzer/dart/element/element.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -289,6 +290,268 @@ class MockStringLiteral extends _i1.Mock implements _i3.StringLiteral {
           Invocation.getter(#root),
         ),
       ) as _i3.AstNode);
+  @override
+  E? accept<E>(_i3.AstVisitor<E>? visitor) =>
+      (super.noSuchMethod(Invocation.method(
+        #accept,
+        [visitor],
+      )) as E?);
+  @override
+  _i2.Token? findPrevious(_i2.Token? target) =>
+      (super.noSuchMethod(Invocation.method(
+        #findPrevious,
+        [target],
+      )) as _i2.Token?);
+  @override
+  E? getProperty<E>(String? name) => (super.noSuchMethod(Invocation.method(
+        #getProperty,
+        [name],
+      )) as E?);
+  @override
+  void setProperty(
+    String? name,
+    Object? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setProperty,
+          [
+            name,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  E? thisOrAncestorMatching<E extends _i3.AstNode>(
+          bool Function(_i3.AstNode)? predicate) =>
+      (super.noSuchMethod(Invocation.method(
+        #thisOrAncestorMatching,
+        [predicate],
+      )) as E?);
+  @override
+  String toSource() => (super.noSuchMethod(
+        Invocation.method(
+          #toSource,
+          [],
+        ),
+        returnValue: '',
+      ) as String);
+  @override
+  void visitChildren(_i3.AstVisitor<dynamic>? visitor) => super.noSuchMethod(
+        Invocation.method(
+          #visitChildren,
+          [visitor],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ConstructorInitializer].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConstructorInitializer extends _i1.Mock
+    implements _i3.ConstructorInitializer {
+  MockConstructorInitializer() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.Token get beginToken => (super.noSuchMethod(
+        Invocation.getter(#beginToken),
+        returnValue: _FakeToken_0(
+          this,
+          Invocation.getter(#beginToken),
+        ),
+      ) as _i2.Token);
+  @override
+  Iterable<_i5.SyntacticEntity> get childEntities => (super.noSuchMethod(
+        Invocation.getter(#childEntities),
+        returnValue: <_i5.SyntacticEntity>[],
+      ) as Iterable<_i5.SyntacticEntity>);
+  @override
+  int get end => (super.noSuchMethod(
+        Invocation.getter(#end),
+        returnValue: 0,
+      ) as int);
+  @override
+  _i2.Token get endToken => (super.noSuchMethod(
+        Invocation.getter(#endToken),
+        returnValue: _FakeToken_0(
+          this,
+          Invocation.getter(#endToken),
+        ),
+      ) as _i2.Token);
+  @override
+  bool get isSynthetic => (super.noSuchMethod(
+        Invocation.getter(#isSynthetic),
+        returnValue: false,
+      ) as bool);
+  @override
+  int get length => (super.noSuchMethod(
+        Invocation.getter(#length),
+        returnValue: 0,
+      ) as int);
+  @override
+  int get offset => (super.noSuchMethod(
+        Invocation.getter(#offset),
+        returnValue: 0,
+      ) as int);
+  @override
+  _i3.AstNode get root => (super.noSuchMethod(
+        Invocation.getter(#root),
+        returnValue: _FakeAstNode_2(
+          this,
+          Invocation.getter(#root),
+        ),
+      ) as _i3.AstNode);
+  @override
+  E? accept<E>(_i3.AstVisitor<E>? visitor) =>
+      (super.noSuchMethod(Invocation.method(
+        #accept,
+        [visitor],
+      )) as E?);
+  @override
+  _i2.Token? findPrevious(_i2.Token? target) =>
+      (super.noSuchMethod(Invocation.method(
+        #findPrevious,
+        [target],
+      )) as _i2.Token?);
+  @override
+  E? getProperty<E>(String? name) => (super.noSuchMethod(Invocation.method(
+        #getProperty,
+        [name],
+      )) as E?);
+  @override
+  void setProperty(
+    String? name,
+    Object? value,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #setProperty,
+          [
+            name,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  E? thisOrAncestorMatching<E extends _i3.AstNode>(
+          bool Function(_i3.AstNode)? predicate) =>
+      (super.noSuchMethod(Invocation.method(
+        #thisOrAncestorMatching,
+        [predicate],
+      )) as E?);
+  @override
+  String toSource() => (super.noSuchMethod(
+        Invocation.method(
+          #toSource,
+          [],
+        ),
+        returnValue: '',
+      ) as String);
+  @override
+  void visitChildren(_i3.AstVisitor<dynamic>? visitor) => super.noSuchMethod(
+        Invocation.method(
+          #visitChildren,
+          [visitor],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [FunctionBody].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFunctionBody extends _i1.Mock implements _i3.FunctionBody {
+  MockFunctionBody() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  bool get isAsynchronous => (super.noSuchMethod(
+        Invocation.getter(#isAsynchronous),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool get isGenerator => (super.noSuchMethod(
+        Invocation.getter(#isGenerator),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool get isSynchronous => (super.noSuchMethod(
+        Invocation.getter(#isSynchronous),
+        returnValue: false,
+      ) as bool);
+  @override
+  _i2.Token get beginToken => (super.noSuchMethod(
+        Invocation.getter(#beginToken),
+        returnValue: _FakeToken_0(
+          this,
+          Invocation.getter(#beginToken),
+        ),
+      ) as _i2.Token);
+  @override
+  Iterable<_i5.SyntacticEntity> get childEntities => (super.noSuchMethod(
+        Invocation.getter(#childEntities),
+        returnValue: <_i5.SyntacticEntity>[],
+      ) as Iterable<_i5.SyntacticEntity>);
+  @override
+  int get end => (super.noSuchMethod(
+        Invocation.getter(#end),
+        returnValue: 0,
+      ) as int);
+  @override
+  _i2.Token get endToken => (super.noSuchMethod(
+        Invocation.getter(#endToken),
+        returnValue: _FakeToken_0(
+          this,
+          Invocation.getter(#endToken),
+        ),
+      ) as _i2.Token);
+  @override
+  bool get isSynthetic => (super.noSuchMethod(
+        Invocation.getter(#isSynthetic),
+        returnValue: false,
+      ) as bool);
+  @override
+  int get length => (super.noSuchMethod(
+        Invocation.getter(#length),
+        returnValue: 0,
+      ) as int);
+  @override
+  int get offset => (super.noSuchMethod(
+        Invocation.getter(#offset),
+        returnValue: 0,
+      ) as int);
+  @override
+  _i3.AstNode get root => (super.noSuchMethod(
+        Invocation.getter(#root),
+        returnValue: _FakeAstNode_2(
+          this,
+          Invocation.getter(#root),
+        ),
+      ) as _i3.AstNode);
+  @override
+  bool isPotentiallyMutatedInClosure(_i6.VariableElement? variable) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isPotentiallyMutatedInClosure,
+          [variable],
+        ),
+        returnValue: false,
+      ) as bool);
+  @override
+  bool isPotentiallyMutatedInScope(_i6.VariableElement? variable) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #isPotentiallyMutatedInScope,
+          [variable],
+        ),
+        returnValue: false,
+      ) as bool);
   @override
   E? accept<E>(_i3.AstVisitor<E>? visitor) =>
       (super.noSuchMethod(Invocation.method(
