@@ -13,6 +13,7 @@ abstract class LintSpecification {
   LintSpecification or(LintSpecification other) => OrSpecification(this, other);
 
   /// NOT operation
+  // ignore: use_to_and_as_if_applicable
   LintSpecification not() => NotSpecification(this);
 
   @override

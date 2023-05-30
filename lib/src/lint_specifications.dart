@@ -62,27 +62,23 @@ class FunctionSpecification extends LintSpecification {
 class StringLiteralInsideWidgetSpecification extends LintSpecification {
   /// Default constructor
   StringLiteralInsideWidgetSpecification();
-  final isNotImport = ImportSpecification().not();
-  final isConstructor = ConstructorSpecification();
-  final isFunction = FunctionSpecification();
-  late final specification = isNotImport
+  final _isNotImport = ImportSpecification().not();
+  final _isConstructor = ConstructorSpecification();
+  final _isFunction = FunctionSpecification();
+  late final _specification = _isNotImport
       // .and(isStringLiteral)
       .and(
     AnySpecification(
       [
-        isConstructor,
-        isFunction,
+        _isConstructor,
+        _isFunction,
       ],
     ),
   );
 
   @override
-  bool isSatisfiedBy(AstNode element) {
-    // final isStringLiteral = StringLiteralSpecification();
-
-    return specification.isSatisfiedBy(element);
-  }
+  bool isSatisfiedBy(AstNode element) => _specification.isSatisfiedBy(element);
 
   @override
-  String toString() => '$specification';
+  String toString() => '$_specification';
 }
