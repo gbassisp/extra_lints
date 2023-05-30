@@ -9,6 +9,9 @@ class ImportSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element is Directive;
+
+  @override
+  String toString() => 'IsImport';
 }
 
 /// Specification: ast is a string literal
@@ -18,6 +21,9 @@ class StringLiteralSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element is StringLiteral;
+
+  @override
+  String toString() => 'IsStringLiteral';
 }
 
 /// Specification: used in a constructor
@@ -28,6 +34,9 @@ class ConstructorSpecification extends LintSpecification {
   // TODO(gbassi): check class extends Widget/State
   @override
   bool isSatisfiedBy(AstNode element) => element is InstanceCreationExpression;
+
+  @override
+  String toString() => 'IsConstructor';
 }
 
 /// Specification used in a function returning a Widget
@@ -42,6 +51,9 @@ class FunctionSpecification extends LintSpecification {
       element.staticElement?.returnType
               .getDisplayString(withNullability: false) ==
           'Widget';
+
+  @override
+  String toString() => 'IsFunction';
 }
 
 /// Specification: ast is a string literal used inside the definition of a
@@ -50,24 +62,27 @@ class FunctionSpecification extends LintSpecification {
 class StringLiteralInsideWidgetSpecification extends LintSpecification {
   /// Default constructor
   StringLiteralInsideWidgetSpecification();
+  final isNotImport = ImportSpecification().not();
+  final isConstructor = ConstructorSpecification();
+  final isFunction = FunctionSpecification();
+  late final specification = isNotImport
+      // .and(isStringLiteral)
+      .and(
+    AnySpecification(
+      [
+        isConstructor,
+        isFunction,
+      ],
+    ),
+  );
 
   @override
   bool isSatisfiedBy(AstNode element) {
-    final isNotImport = ImportSpecification().not();
     // final isStringLiteral = StringLiteralSpecification();
-    final isConstructor = ConstructorSpecification();
-    final isFunction = FunctionSpecification();
 
-    final specification = isNotImport
-        // .and(isStringLiteral)
-        .and(
-      AnySpecification(
-        [
-          isConstructor,
-          isFunction,
-        ],
-      ),
-    );
     return specification.isSatisfiedBy(element);
   }
+
+  @override
+  String toString() => '$specification';
 }

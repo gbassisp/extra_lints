@@ -13,6 +13,14 @@ void main() {
 
     final completeSpecificaiton = StringLiteralInsideWidgetSpecification();
 
+    test('toString is overridden', () {
+      expect(importSpecification.toString(), isNotEmpty);
+      expect(stringLiteral.toString(), isNotEmpty);
+      expect(constructor.toString(), isNotEmpty);
+      expect(function.toString(), isNotEmpty);
+      expect(completeSpecificaiton.toString(), isNotEmpty);
+    });
+
     test('Directive AstNode', () {
       final element = MockDirective();
       expect(importSpecification.isSatisfiedBy(element), isTrue);

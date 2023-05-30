@@ -61,14 +61,18 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
       return;
     }
 
+    final specification = StringLiteralInsideWidgetSpecification();
     // string literal registry
     context.registry.addStringLiteral((node) {
       final w = node.thisOrAncestorMatching<AstNode>(
         (p0) {
-          final r = StringLiteralInsideWidgetSpecification().isSatisfiedBy(p0);
-          print('${p0.runtimeType} '
-              'at ${resolver.source.shortName} '
-              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r');
+          final r = specification.isSatisfiedBy(p0);
+          print(
+            '${p0.runtimeType} '
+            'at ${resolver.source.shortName} '
+            '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r\n'
+            '$specification',
+          );
           return r;
         },
       );
@@ -81,10 +85,13 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
     context.registry.addStringInterpolation((node) {
       final w = node.thisOrAncestorMatching<AstNode>(
         (p0) {
-          final r = StringLiteralInsideWidgetSpecification().isSatisfiedBy(p0);
-          print('${p0.runtimeType} '
-              'at ${resolver.source.shortName} '
-              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r');
+          final r = specification.isSatisfiedBy(p0);
+          print(
+            '${p0.runtimeType} '
+            'at ${resolver.source.shortName} '
+            '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r\n'
+            '$specification',
+          );
           return r;
         },
       );

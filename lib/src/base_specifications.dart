@@ -14,6 +14,12 @@ abstract class LintSpecification {
 
   /// NOT operation
   LintSpecification not() => NotSpecification(this);
+
+  @override
+  String toString() {
+    assert(false, 'toString() should be overridden');
+    return '';
+  }
 }
 
 /// AND operation
@@ -27,6 +33,9 @@ class AndSpecification extends LintSpecification {
   @override
   bool isSatisfiedBy(AstNode element) =>
       _first.isSatisfiedBy(element) && _second.isSatisfiedBy(element);
+
+  @override
+  String toString() => '($_first AND $_second)';
 }
 
 /// OR operation
@@ -40,6 +49,9 @@ class OrSpecification extends LintSpecification {
   @override
   bool isSatisfiedBy(AstNode element) =>
       _first.isSatisfiedBy(element) || _second.isSatisfiedBy(element);
+
+  @override
+  String toString() => '($_first OR $_second)';
 }
 
 /// NOT operation
@@ -51,6 +63,9 @@ class NotSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => !_specification.isSatisfiedBy(element);
+
+  @override
+  String toString() => '(NOT $_specification)';
 }
 
 /// ANY operation
@@ -60,15 +75,14 @@ class AnySpecification extends LintSpecification {
 
   final List<LintSpecification> _specifications;
 
+  /// Combine all specifications with OR
+  LintSpecification get combined => _specifications.reduce((a, b) => a.or(b));
+
   @override
-  bool isSatisfiedBy(AstNode element) {
-    for (final specification in _specifications) {
-      if (specification.isSatisfiedBy(element)) {
-        return true;
-      }
-    }
-    return false;
-  }
+  bool isSatisfiedBy(AstNode element) => combined.isSatisfiedBy(element);
+
+  @override
+  String toString() => '$combined';
 }
 
 /// ALL operation
@@ -78,13 +92,12 @@ class AllSpecification extends LintSpecification {
 
   final List<LintSpecification> _specifications;
 
+  /// Combine all specifications with AND
+  LintSpecification get combined => _specifications.reduce((a, b) => a.and(b));
+
   @override
-  bool isSatisfiedBy(AstNode element) {
-    for (final specification in _specifications) {
-      if (!specification.isSatisfiedBy(element)) {
-        return false;
-      }
-    }
-    return true;
-  }
+  bool isSatisfiedBy(AstNode element) => combined.isSatisfiedBy(element);
+
+  @override
+  String toString() => '$combined';
 }
