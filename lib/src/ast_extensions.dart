@@ -25,10 +25,20 @@ extension AstParser on AstNode {
   /// checks if it is a FormalParameter with a static type that is a Widget
   bool get isWithinWidget {
     return this is VariableDeclaration &&
+            ((this as VariableDeclaration)
+                    .declaredElement
+                    ?.enclosingElement
+                    ?.isWidgetClass ??
+                false) ||
+        _isWithinWidgetRecursively;
+  }
+
+  bool get _isWithinWidgetRecursively {
+    return this is VariableDeclaration &&
         ((this as VariableDeclaration)
                 .declaredElement
                 ?.enclosingElement
-                ?.isWidgetClass ??
+                ?._recursiveEnclosingElementIsWidget ??
             false);
   }
 }
@@ -39,6 +49,16 @@ extension _DartTypeParser on DartType {
 
 /// if it is not "Widget", then use recursion to check if supertype is widget
 extension ElementParser on Element {
+  bool get _recursiveEnclosingElementIsWidget {
+    if (enclosingElement == null) {
+      return false;
+    }
+    if (enclosingElement!.isWidgetClass) {
+      return true;
+    }
+    return enclosingElement!._recursiveEnclosingElementIsWidget;
+  }
+
   bool get _hasBuildMethod =>
       // is interface (every class has an interface)
       this is InterfaceOrAugmentationElement &&
