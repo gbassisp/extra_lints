@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:extra_lints/src/ast_extensions.dart';
 
 part 'base_specifications.dart';
 
@@ -31,9 +32,8 @@ class ConstructorSpecification extends LintSpecification {
   /// Default constructor
   ConstructorSpecification();
 
-  // TODO(gbassi): check class extends Widget/State
   @override
-  bool isSatisfiedBy(AstNode element) => element is InstanceCreationExpression;
+  bool isSatisfiedBy(AstNode element) => element.isWidgetClass;
 
   @override
   String toString() => 'IsConstructor';
@@ -44,16 +44,11 @@ class FunctionSpecification extends LintSpecification {
   /// Default constructor
   FunctionSpecification();
 
-  // TODO(gbassi): check function returns Widget
   @override
-  bool isSatisfiedBy(AstNode element) =>
-      element is FunctionExpressionInvocation &&
-      element.staticElement?.returnType
-              .getDisplayString(withNullability: false) ==
-          'Widget';
+  bool isSatisfiedBy(AstNode element) => element.isWidgetClass;
 
   @override
-  String toString() => 'IsFunction';
+  String toString() => 'IsWidgetFunction';
 }
 
 /// Specification: ast is a string literal used inside the definition of a
@@ -65,9 +60,7 @@ class StringLiteralInsideWidgetSpecification extends LintSpecification {
   final _isNotImport = ImportSpecification().not();
   final _isConstructor = ConstructorSpecification();
   final _isFunction = FunctionSpecification();
-  late final _specification = _isNotImport
-      // .and(isStringLiteral)
-      .and(
+  late final _specification = _isNotImport.and(
     AnySpecification(
       [
         _isConstructor,

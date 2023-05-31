@@ -3,6 +3,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:extra_lints/src/ast_extensions.dart';
 import 'package:extra_lints/src/lint_specifications.dart';
 
 /// create plugin to analyze dart files and raise warning on string literals
@@ -62,17 +63,17 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
     }
 
     final specification = StringLiteralInsideWidgetSpecification();
+
     // string literal registry
     context.registry.addStringLiteral((node) {
       final w = node.thisOrAncestorMatching<AstNode>(
         (p0) {
           final r = specification.isSatisfiedBy(p0);
-          print(
-            '${p0.runtimeType} '
-            'at ${resolver.source.shortName} '
-            '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r\n'
-            '$specification',
-          );
+          print('${p0.runtimeType} '
+              'at ${resolver.source.shortName} '
+              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r'
+              // '\n$specification',
+              );
           return r;
         },
       );
@@ -86,12 +87,11 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
       final w = node.thisOrAncestorMatching<AstNode>(
         (p0) {
           final r = specification.isSatisfiedBy(p0);
-          print(
-            '${p0.runtimeType} '
-            'at ${resolver.source.shortName} '
-            '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r\n'
-            '$specification',
-          );
+          print('${p0.runtimeType} '
+              'at ${resolver.source.shortName} '
+              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r'
+              // '\n$specification',
+              );
           return r;
         },
       );

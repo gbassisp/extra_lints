@@ -37,6 +37,8 @@ class Another extends StatefulWidget {
   const Another({super.key, this.defaultValue = 'default'});
 
   final String defaultValue;
+  // expect_lint: avoid_string_literals_inside_widget
+  final outsideState = 'a string';
 
   @override
   State<Another> createState() => _AnotherState();
@@ -44,7 +46,7 @@ class Another extends StatefulWidget {
 
 class _AnotherState extends State<Another> {
   // expect_lint: avoid_string_literals_inside_widget
-  final defaultString = 'a string';
+  final insideState = 'a string';
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,8 @@ class _AnotherState extends State<Another> {
 
     return Row(
       children: [
-        Text(defaultString),
+        Text(insideState),
+        Text(widget.outsideState),
         Text(widget.defaultValue),
         a,
       ],

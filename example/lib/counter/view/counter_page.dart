@@ -19,6 +19,7 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // expect_lint: avoid_string_literals_inside_widget
     const a = 'another literal that should raise';
     return Scaffold(
       appBar: AppBar(
