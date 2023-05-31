@@ -9,7 +9,7 @@ void main() {
     final importSpecification = ImportSpecification();
     final stringLiteral = StringLiteralSpecification();
     final constructor = ConstructorSpecification();
-    final function = FunctionSpecification();
+    final function = ClassSpecification();
 
     final completeSpecificaiton = StringLiteralInsideWidgetSpecification();
 

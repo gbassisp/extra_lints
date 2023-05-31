@@ -15,6 +15,13 @@ class One extends StatelessWidget {
 
   // expect_lint: avoid_string_literals_inside_widget
   final defaultString = 'a string';
+
+  // expect_lint: avoid_string_literals_inside_widget
+  static final staticFinal = 'a string';
+
+  // expect_lint: avoid_string_literals_inside_widget
+  static const staticConst = 'a string';
+
   final String defaultValue;
 
   @override
@@ -64,17 +71,22 @@ class _AnotherState extends State<Another> {
   }
 }
 
+// not_expect_lint: avoid_string_literals_inside_widget
 const constString = 'a string';
 
 void main() {
+  // not_expect_lint: avoid_string_literals_inside_widget
   group('App', () {
+    // not_expect_lint: avoid_string_literals_inside_widget
     testWidgets('renders CounterPage', (tester) async {
       await tester.pumpWidget(const App());
       expect(find.byType(CounterPage), findsOneWidget);
     });
   });
 
+  // not_expect_lint: avoid_string_literals_inside_widget
   group('linter', () {
+    // not_expect_lint: avoid_string_literals_inside_widget
     test('expect lint', () {
       // expect_lint: avoid_string_literals_inside_widget
       final w = Builder(builder: (_) => const Text('Counter'));

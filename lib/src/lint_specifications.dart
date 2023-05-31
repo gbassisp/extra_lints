@@ -33,22 +33,34 @@ class ConstructorSpecification extends LintSpecification {
   ConstructorSpecification();
 
   @override
-  bool isSatisfiedBy(AstNode element) => element.isWidgetClass;
+  bool isSatisfiedBy(AstNode element) => element.isWidgetConstructor;
 
   @override
   String toString() => 'IsConstructor';
 }
 
 /// Specification used in a function returning a Widget
-class FunctionSpecification extends LintSpecification {
+class ClassSpecification extends LintSpecification {
   /// Default constructor
-  FunctionSpecification();
+  ClassSpecification();
 
   @override
   bool isSatisfiedBy(AstNode element) => element.isWidgetClass;
 
   @override
-  String toString() => 'IsWidgetFunction';
+  String toString() => 'IsClass';
+}
+
+/// Specification used in a function returning a Widget
+class CompilationUnitSpecification extends LintSpecification {
+  /// Default constructor
+  CompilationUnitSpecification();
+
+  @override
+  bool isSatisfiedBy(AstNode element) => element.isWidgetCompilationUnit;
+
+  @override
+  String toString() => 'IsCompilationUnit';
 }
 
 /// Specification: ast is a string literal used inside the definition of a
@@ -59,12 +71,14 @@ class StringLiteralInsideWidgetSpecification extends LintSpecification {
   StringLiteralInsideWidgetSpecification();
   final _isNotImport = ImportSpecification().not();
   final _isConstructor = ConstructorSpecification();
-  final _isFunction = FunctionSpecification();
+  final _isClass = ClassSpecification();
+  final _isCompilationUnit = CompilationUnitSpecification();
   late final _specification = _isNotImport.and(
     AnySpecification(
       [
         _isConstructor,
-        _isFunction,
+        _isClass,
+        _isCompilationUnit,
       ],
     ),
   );
