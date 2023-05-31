@@ -23,24 +23,15 @@ extension AstParser on AstNode {
   }
 
   /// checks if it is a FormalParameter with a static type that is a Widget
-  bool get isWidgetCompilationUnit {
-    return false;
-    // this is CompilationUnit &&
-    //     ((this as CompilationUnit)
-    //             .declaredElement
-    //             ?.classes
-    //             .any((element) => element.isWidgetClass) ??
-    //         false);
+  bool get isWithinWidget {
+    return this is VariableDeclaration &&
+        ((this as VariableDeclaration)
+                .declaredElement
+                ?.enclosingElement
+                ?.isWidgetClass ??
+            false);
   }
-
-  // bool get _a {
-  //   return this is DefaultFormalParameter && (this as DefaultFormalParameter).;
-  // }
 }
-
-// [avoid_string_literals_inside_widget] 2023-05-31T21:50:48.859234 ConstructorDeclarationImpl at app_test.dart 37: false
-// [avoid_string_literals_inside_widget] 2023-05-31T21:50:48.859496 ClassDeclarationImpl at app_test.dart 37: false
-// [avoid_string_literals_inside_widget] 2023-05-31T21:50:48.859707 CompilationUnitImpl at app_test.dart 37: false
 
 extension _DartTypeParser on DartType {
   bool get isWidget => element?.isWidgetClass ?? false;

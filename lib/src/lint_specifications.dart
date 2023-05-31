@@ -52,15 +52,15 @@ class ClassSpecification extends LintSpecification {
 }
 
 /// Specification used in a function returning a Widget
-class CompilationUnitSpecification extends LintSpecification {
+class InsideWidgetSpecification extends LintSpecification {
   /// Default constructor
-  CompilationUnitSpecification();
+  InsideWidgetSpecification();
 
   @override
-  bool isSatisfiedBy(AstNode element) => element.isWidgetCompilationUnit;
+  bool isSatisfiedBy(AstNode element) => element.isWithinWidget;
 
   @override
-  String toString() => 'IsCompilationUnit';
+  String toString() => 'IsInsideWidget';
 }
 
 /// Specification: ast is a string literal used inside the definition of a
@@ -72,7 +72,7 @@ class StringLiteralInsideWidgetSpecification extends LintSpecification {
   final _isNotImport = ImportSpecification().not();
   final _isConstructor = ConstructorSpecification();
   final _isClass = ClassSpecification();
-  final _isCompilationUnit = CompilationUnitSpecification();
+  final _isCompilationUnit = InsideWidgetSpecification();
   late final _specification = _isNotImport.and(
     AnySpecification(
       [
