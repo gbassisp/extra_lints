@@ -6,14 +6,10 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:extra_lints/src/lint_specifications.dart';
 
 /// create plugin to analyze dart files and raise warning on string literals
-/// declared inside a class that extends Widget
+/// declared inside a class that extends Widget or State
 PluginBase createPlugin() => _ExtraLinter();
 
-/// {@template extra_lints}
-/// A Very Good Project created by Very Good CLI.
-/// {@endtemplate}
 class _ExtraLinter extends PluginBase {
-  /// {@macro extra_lints}
   _ExtraLinter();
 
   LintRule? createLint(
@@ -37,7 +33,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
   /// Metadata about the warning that will show-up in the IDE.
   /// This is used for `// ignore: code` and enabling/disabling the lint
   static const _code = LintCode(
-    name: 'avoid_string_literals_inside_widget',
+    name: _name,
     problemMessage: 'String literals should not be declared inside a widget '
         'class. '
         'If this string is used for presentation, such as in a Text widget, '
@@ -48,7 +44,10 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
         'If this is for presentation, follow Flutter guidelines on l10n. '
         'If this is for comparison, consider using an enum instead.',
     errorSeverity: ErrorSeverity.WARNING,
+    uniqueName: _name,
   );
+
+  static const _name = 'avoid_string_literals_inside_widget';
 
   @override
   void run(
@@ -66,15 +65,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
     // string literal registry
     context.registry.addStringLiteral((node) {
       final w = node.thisOrAncestorMatching<AstNode>(
-        (p0) {
-          final r = specification.isSatisfiedBy(p0);
-          print('${p0.runtimeType} '
-              'at ${resolver.source.shortName} '
-              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r'
-              // '\n$specification',
-              );
-          return r;
-        },
+        specification.isSatisfiedBy,
       );
 
       if (w != null) {
@@ -84,22 +75,12 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
     // string interpolation registry
     context.registry.addStringInterpolation((node) {
       final w = node.thisOrAncestorMatching<AstNode>(
-        (p0) {
-          final r = specification.isSatisfiedBy(p0);
-          print('${p0.runtimeType} '
-              'at ${resolver.source.shortName} '
-              '${resolver.lineInfo.getLocation(node.offset).lineNumber}: $r'
-              // '\n$specification',
-              );
-          return r;
-        },
+        specification.isSatisfiedBy,
       );
 
       if (w != null) {
         reporter.reportErrorForNode(code, node);
       }
-
-      // reporter.reportErrorForNode(code, node);
     });
   }
 }
