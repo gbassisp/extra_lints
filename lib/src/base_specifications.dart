@@ -18,8 +18,8 @@ abstract class LintSpecification {
 
   @override
   String toString() {
-    assert(false, 'toString() should be overridden');
-    return '';
+    assert(false, 'toString() should be overridden to make debugging easier');
+    return super.toString();
   }
 }
 
