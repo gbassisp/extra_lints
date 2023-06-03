@@ -29,14 +29,15 @@ get: clean
 
 
 .PHONY: doc
-doc: get
+doc:
 	@echo "Generating documentation..."
 	$(DART_CMD) doc
 
 .PHONY: analyze
-analyze: get
+analyze:
 	@echo "Analyzing..."
 	$(DART_CMD) analyze && $(FLUTTER_CMD) analyze
+	$(DART_CMD) format --set-exit-if-changed .
 
 
 ### Coverage ###
