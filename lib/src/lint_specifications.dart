@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:extra_lints/src/ast_extensions.dart';
+import 'package:flutter_sane_lints/src/ast_extensions.dart';
 
 part 'base_specifications.dart';
 

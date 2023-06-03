@@ -3,14 +3,14 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
-import 'package:extra_lints/src/lint_specifications.dart';
+import 'package:flutter_sane_lints/src/lint_specifications.dart';
 
 /// create plugin to analyze dart files and raise warning on string literals
 /// declared inside a class that extends Widget or State
-PluginBase createPlugin() => _ExtraLinter();
+PluginBase createPlugin() => _FlutterSaneLints();
 
-class _ExtraLinter extends PluginBase {
-  _ExtraLinter();
+class _FlutterSaneLints extends PluginBase {
+  _FlutterSaneLints();
 
   LintRule? createLint(
     ResolvedUnitResult resolvedUnitResult,
@@ -25,9 +25,10 @@ class _ExtraLinter extends PluginBase {
       ];
 }
 
-/// Warning that String literals should not be declared inside a widget class
+/// A [DartLintRule] that raises a warning on string literals declared inside
+/// a class that extends Widget or State, or a Widget constructor.
 class AvoidStringLiteralsInsideWidget extends DartLintRule {
-  /// Default constructor
+  /// Default const constructor
   const AvoidStringLiteralsInsideWidget() : super(code: _code);
 
   /// Metadata about the warning that will show-up in the IDE.

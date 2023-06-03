@@ -16,6 +16,6 @@
   ],
   "useGitignore": true,
   "words": [
-    "extra_lints"
+    "flutter_sane_lints"
   ]
 }

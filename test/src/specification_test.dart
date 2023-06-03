@@ -1,4 +1,4 @@
-import 'package:extra_lints/src/lint_specifications.dart';
+import 'package:flutter_sane_lints/src/lint_specifications.dart';
 import 'package:test/test.dart';
 
 import 'ast_mocks.mocks.dart';
