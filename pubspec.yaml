@@ -1,7 +1,6 @@
 name: flutter_sane_lints
 description: A custom lint for flutter projects to avoid ad-hoc string literals.
 version: 0.1.0
-publish_to: https://pub.dev
 repository: https://github.com/gbassisp/extra_lints
 
 environment:
