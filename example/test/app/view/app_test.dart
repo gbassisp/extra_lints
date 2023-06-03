@@ -17,7 +17,7 @@ class One extends StatelessWidget {
   final defaultString = 'a string';
 
   // expect_lint: avoid_string_literals_inside_widget
-  static final staticFinal = 'a string';
+  static const staticFinal = 'a string';
 
   // expect_lint: avoid_string_literals_inside_widget
   static const staticConst = 'a string';

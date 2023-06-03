@@ -1,5 +1,4 @@
 import 'package:extra_lints/src/lint_specifications.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'ast_mocks.mocks.dart';
