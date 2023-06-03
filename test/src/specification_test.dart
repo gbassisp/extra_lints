@@ -1,7 +1,28 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:flutter_sane_lints/src/lint_specifications.dart';
 import 'package:test/test.dart';
 
 import 'ast_mocks.mocks.dart';
+
+class AlwaysTrue extends LintSpecification {
+  AlwaysTrue();
+
+  @override
+  bool isSatisfiedBy(AstNode element) => true;
+
+  @override
+  String toString() => 'AlwaysTrue';
+}
+
+class AlwaysFalse extends LintSpecification {
+  AlwaysFalse();
+
+  @override
+  bool isSatisfiedBy(AstNode element) => false;
+
+  @override
+  String toString() => 'AlwaysFalse';
+}
 
 void main() {
   group('specification', () {
@@ -12,6 +33,9 @@ void main() {
 
     final completeSpecificaiton = StringLiteralInsideWidgetSpecification();
 
+    final alwaysTrue = AlwaysTrue();
+    final alwaysFalse = AlwaysFalse();
+    final ast = MockDirective();
     test('toString is overridden', () {
       expect(importSpecification.toString(), isNotEmpty);
       expect(stringLiteral.toString(), isNotEmpty);
@@ -20,33 +44,25 @@ void main() {
       expect(completeSpecificaiton.toString(), isNotEmpty);
     });
 
-    test('Directive AstNode', () {
-      final element = MockDirective();
-      expect(importSpecification.isSatisfiedBy(element), isTrue);
-
-      // a Directive should never satisfy the specification
-      expect(completeSpecificaiton.isSatisfiedBy(element), isFalse);
+    test('Base specifications - sanity check', () {
+      expect(alwaysTrue.isSatisfiedBy(ast), isTrue);
+      expect(alwaysFalse.isSatisfiedBy(ast), isFalse);
     });
-    test('StringLiteral AstNode', () {
-      final element = MockStringLiteral();
-      expect(stringLiteral.isSatisfiedBy(element), isTrue);
+    test('Base specifications', () {
+      final and = alwaysTrue.and(alwaysTrue);
+      final or = alwaysTrue.or(alwaysFalse);
+      final not = alwaysFalse.not();
+      final any = AnySpecification([and, or, not]);
+      final all = AllSpecification([and, or, not, any]);
 
-      // a string literal alone does not satisfy the specification
-      expect(completeSpecificaiton.isSatisfiedBy(element), isFalse);
-    });
-    test('Constructor AstNode', () {
-      final element = MockConstructorInitializer();
-      expect(constructor.isSatisfiedBy(element), isTrue);
+      expect(and.isSatisfiedBy(ast), isTrue);
+      expect(or.isSatisfiedBy(ast), isTrue);
+      expect(not.isSatisfiedBy(ast), isTrue);
+      expect(any.isSatisfiedBy(ast), isTrue);
+      expect(all.isSatisfiedBy(ast), isTrue);
+      expect(all.not().isSatisfiedBy(ast), isFalse);
 
-      // a string literal alone does not satisfy the specification
-      expect(completeSpecificaiton.isSatisfiedBy(element), isFalse);
-    });
-    test('Function AstNode', () {
-      final element = MockFunctionBody();
-      expect(function.isSatisfiedBy(element), isTrue);
-
-      // a string literal alone does not satisfy the specification
-      expect(completeSpecificaiton.isSatisfiedBy(element), isFalse);
+      expect(all.toString(), isNotEmpty);
     });
   });
 }

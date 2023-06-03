@@ -15,12 +15,6 @@ abstract class LintSpecification {
   /// NOT operation
   // ignore: use_to_and_as_if_applicable
   LintSpecification not() => NotSpecification(this);
-
-  @override
-  String toString() {
-    assert(false, 'toString() should be overridden to make debugging easier');
-    return super.toString();
-  }
 }
 
 /// AND operation

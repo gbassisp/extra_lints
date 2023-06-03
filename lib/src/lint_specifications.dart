@@ -10,9 +10,6 @@ class ImportSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element is Directive;
-
-  @override
-  String toString() => 'IsImport';
 }
 
 /// Specification: ast is a string literal
@@ -22,9 +19,6 @@ class StringLiteralSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element is StringLiteral;
-
-  @override
-  String toString() => 'IsStringLiteral';
 }
 
 /// Specification: used in a constructor
@@ -34,9 +28,6 @@ class ConstructorSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element.isWidgetConstructor;
-
-  @override
-  String toString() => 'IsConstructor';
 }
 
 /// Specification used in a function returning a Widget
@@ -46,9 +37,6 @@ class ClassSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element.isWidgetClass;
-
-  @override
-  String toString() => 'IsClass';
 }
 
 /// Specification used in a function returning a Widget
@@ -58,9 +46,6 @@ class InsideWidgetSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) => element.isWithinWidget;
-
-  @override
-  String toString() => 'IsInsideWidget';
 }
 
 /// Specification: ast is a string literal used inside the definition of a
