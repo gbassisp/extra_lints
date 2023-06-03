@@ -27,7 +27,6 @@ class AlwaysFalse extends LintSpecification {
 void main() {
   group('specification', () {
     final importSpecification = ImportSpecification();
-    final stringLiteral = StringLiteralSpecification();
     final constructor = ConstructorSpecification();
     final function = ClassSpecification();
 
@@ -38,7 +37,6 @@ void main() {
     final ast = MockDirective();
     test('toString is overridden', () {
       expect(importSpecification.toString(), isNotEmpty);
-      expect(stringLiteral.toString(), isNotEmpty);
       expect(constructor.toString(), isNotEmpty);
       expect(function.toString(), isNotEmpty);
       expect(completeSpecificaiton.toString(), isNotEmpty);

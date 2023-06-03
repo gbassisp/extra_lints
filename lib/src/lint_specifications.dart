@@ -12,15 +12,6 @@ class ImportSpecification extends LintSpecification {
   bool isSatisfiedBy(AstNode element) => element is Directive;
 }
 
-/// Specification: ast is a string literal
-class StringLiteralSpecification extends LintSpecification {
-  /// Default constructor
-  StringLiteralSpecification();
-
-  @override
-  bool isSatisfiedBy(AstNode element) => element is StringLiteral;
-}
-
 /// Specification: used in a constructor
 class ConstructorSpecification extends LintSpecification {
   /// Default constructor
