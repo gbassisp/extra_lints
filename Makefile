@@ -13,7 +13,8 @@ all: get test analyze doc
 .PHONY: test
 test:
 	@echo "Running tests..."
-	$(DART_CMD) pub global run coverage:test_with_coverage && $(FLUTTER_CMD) test
+	$(DART_CMD) run coverage:test_with_coverage && $(FLUTTER_CMD) test
+	$(MAKE) format_lcov
 
 .PHONY: clean
 clean:
@@ -24,7 +25,6 @@ clean:
 .PHONY: get
 get: clean
 	@echo "Getting dependencies..."
-	$(DART_CMD) pub global activate coverage
 	$(DART_CMD) pub get && $(FLUTTER_CMD) pub get
 
 
@@ -37,5 +37,21 @@ doc: get
 analyze: get
 	@echo "Analyzing..."
 	$(DART_CMD) analyze && $(FLUTTER_CMD) analyze
+
+
+### Coverage ###
+
+# ensure all files listed in the coverage report are relative paths
+CWD := $(shell pwd)
+FILES := $(shell find coverage/*.info -type f ! -path "$(CWD)")
+
+.PHONY: format_lcov
+format_lcov:
+	@echo "Formatting lcov.info..."
+	@echo "CWD: $(CWD)"
+	@echo "FILES: $(FILES)"
+	@for file in $(FILES); do \
+		sed -i'' -e 's|$(CWD)/||g' $$file ; \
+	done
 
 
