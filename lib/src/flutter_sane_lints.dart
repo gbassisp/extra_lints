@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:flutter_sane_lints/src/lint_specifications.dart';
+import 'package:meta/meta.dart';
 
 /// create plugin to analyze dart files and raise warning on string literals
 /// declared inside a class that extends Widget or State
@@ -27,7 +30,8 @@ class _FlutterSaneLints extends PluginBase {
 
 /// A [DartLintRule] that raises a warning on string literals declared inside
 /// a class that extends Widget or State, or a Widget constructor.
-class AvoidStringLiteralsInsideWidget extends DartLintRule {
+class AvoidStringLiteralsInsideWidget extends DartLintRule
+    with TestableDartRule {
   /// Default const constructor
   const AvoidStringLiteralsInsideWidget() : super(code: _code);
 
@@ -57,9 +61,9 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
     CustomLintContext context,
   ) {
     // must be flutter project
-    if (!context.pubspec.dependencies.containsKey('flutter')) {
-      return;
-    }
+    // if (!context.pubspec.dependencies.containsKey('flutter')) {
+    //   return;
+    // }
 
     final specification = StringLiteralInsideWidgetSpecification();
 
@@ -84,4 +88,20 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule {
       }
     });
   }
+
+  @visibleForTesting
+  @override
+  Future<List<AnalysisError>> testFile(File file) {
+    // expose this method for testing
+    // ignore: invalid_use_of_visible_for_testing_member
+    return super.testAnalyzeAndRun(file);
+  }
+}
+
+/// an interface to allow testing of [DartLintRule]
+@visibleForTesting
+mixin TestableDartRule on DartLintRule {
+  /// run the lint rule on a file
+  @visibleForTesting
+  Future<List<AnalysisError>> testFile(File file);
 }
