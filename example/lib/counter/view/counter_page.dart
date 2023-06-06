@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterPage extends StatelessWidget {
-  const CounterPage({super.key});
+  const CounterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class CounterPage extends StatelessWidget {
 }
 
 class CounterView extends StatelessWidget {
-  const CounterView({super.key});
+  const CounterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class CounterView extends StatelessWidget {
 }
 
 class CounterText extends StatelessWidget {
-  const CounterText({super.key});
+  const CounterText({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

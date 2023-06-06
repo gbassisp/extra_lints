@@ -13,7 +13,7 @@ class NotAWidget {
 
 class One extends StatelessWidget {
   // expect_lint: avoid_string_literals_inside_widget
-  const One({super.key, this.defaultValue = 'default'});
+  const One({Key? key, this.defaultValue = 'default'}) : super(key: key);
 
   // expect_lint: avoid_string_literals_inside_widget
   final defaultString = 'a string';
@@ -43,7 +43,7 @@ class One extends StatelessWidget {
 
 class Another extends StatefulWidget {
   // expect_lint: avoid_string_literals_inside_widget
-  const Another({super.key, this.defaultValue = 'default'});
+  const Another({Key? key, this.defaultValue = 'default'}) : super(key: key);
 
   final String defaultValue;
   // expect_lint: avoid_string_literals_inside_widget
