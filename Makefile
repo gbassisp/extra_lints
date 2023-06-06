@@ -1,14 +1,15 @@
-
-DART_CMD=dart
+# check if fvm command exists, otherwise use empty string
+FVM_CMD := $(shell command -v fvm 2> /dev/null)
+DART_CMD=$(FVM_CMD) dart
 EXAMPLE_DIR=example
-FLUTTER=flutter
+FLUTTER=$(FVM_CMD) flutter
 FLUTTER_CMD=cd $(EXAMPLE_DIR) && $(FLUTTER)
 
 export PATH := $(HOME)/.pub-cache/bin:$(PATH)
 
 
 .PHONY: all
-all: get test analyze doc
+all: version get test analyze doc
 
 .PHONY: test
 test:
@@ -38,6 +39,12 @@ analyze:
 	@echo "Analyzing..."
 	$(DART_CMD) analyze && $(FLUTTER_CMD) analyze
 	$(DART_CMD) format --set-exit-if-changed .
+
+.PHONY: version
+version:
+	@echo "Checking version..."
+	$(DART_CMD) --version
+	$(FLUTTER) --version
 
 
 ### Coverage ###
