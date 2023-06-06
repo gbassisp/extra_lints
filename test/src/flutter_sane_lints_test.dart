@@ -34,6 +34,8 @@ int getExpectedErrorsCount(File file, String code) {
 }
 
 void main() {
+  // load files before start testing
+  final files = getFiles();
   group('FlutterSaneLints', () {
     test('can be instantiated', () {
       final plugin = createPlugin();
@@ -42,13 +44,15 @@ void main() {
       expect(lints, isNotEmpty);
     });
 
-    test('run plugin on example project', () async {
-      final plugin = createPlugin();
-      final lints = plugin.getLintRules(CustomLintConfigs.empty);
-      final files = getFiles();
-
+    test('files are found', () {
       expect(files, isNotEmpty);
-      for (final file in files) {
+    });
+
+    for (final file in files) {
+      test('run plugin on example project - file: $file', () async {
+        final plugin = createPlugin();
+        final lints = plugin.getLintRules(CustomLintConfigs.empty);
+
         for (final lint in lints) {
           expect(lint, isA<TestableDartRule>());
           final errors = await (lint as TestableDartRule).testFile(file);
@@ -61,7 +65,7 @@ void main() {
                 'Found these errors: $errors',
           );
         }
-      }
-    });
+      });
+    }
   });
 }
