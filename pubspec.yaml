@@ -16,7 +16,5 @@ dev_dependencies:
 
 dependencies:
   analyzer: ^5.0.0
-  analyzer_plugin: ^0.11.0
   custom_lint_builder: ^0.3.0
   meta: ^1.0.0
-  source_gen: ^1.0.0
