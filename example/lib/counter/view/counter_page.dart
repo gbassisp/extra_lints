@@ -25,7 +25,7 @@ class _SomeStatefulWidgetState extends State<SomeStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     // expect_lint: avoid_string_literals_inside_widget
-    return const Text('stateful widget is also caught by the lint');
+    return const Text('nasty string literals will not support l10n!');
   }
 }
 
