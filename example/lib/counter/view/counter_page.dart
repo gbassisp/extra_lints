@@ -14,6 +14,21 @@ class CounterPage extends StatelessWidget {
   }
 }
 
+class SomeStatefulWidget extends StatefulWidget {
+  const SomeStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<SomeStatefulWidget> createState() => _SomeStatefulWidgetState();
+}
+
+class _SomeStatefulWidgetState extends State<SomeStatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    // expect_lint: avoid_string_literals_inside_widget
+    return const Text('stateful widget is also caught by the lint');
+  }
+}
+
 class CounterView extends StatelessWidget {
   const CounterView({Key? key}) : super(key: key);
 
