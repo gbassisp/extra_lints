@@ -14,6 +14,7 @@ all: version get test analyze doc
 .PHONY: test
 test:
 	@echo "Running tests..."
+	$(DART_CMD) pub global activate coverage
 	$(DART_CMD) run coverage:test_with_coverage && $(FLUTTER_CMD) test
 	$(MAKE) format_lcov
 
