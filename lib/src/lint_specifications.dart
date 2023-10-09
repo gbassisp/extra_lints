@@ -12,7 +12,7 @@ class ImportSpecification extends LintSpecification {
   bool isSatisfiedBy(AstNode element) => element is Directive;
 }
 
-/// Specification: used in a constructor
+/// Specification: used in a Widget constructor
 class ConstructorSpecification extends LintSpecification {
   /// Default constructor
   ConstructorSpecification();
