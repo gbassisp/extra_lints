@@ -30,7 +30,7 @@ void main() {
     final constructor = ConstructorSpecification();
     final function = ClassSpecification();
 
-    final completeSpecificaiton = StringLiteralInsideWidgetSpecification();
+    final completeSpecification = StringLiteralInsideWidgetSpecification();
 
     final alwaysTrue = AlwaysTrue();
     final alwaysFalse = AlwaysFalse();
@@ -39,7 +39,7 @@ void main() {
       expect(importSpecification.toString(), isNotEmpty);
       expect(constructor.toString(), isNotEmpty);
       expect(function.toString(), isNotEmpty);
-      expect(completeSpecificaiton.toString(), isNotEmpty);
+      expect(completeSpecification.toString(), isNotEmpty);
     });
 
     test('Base specifications - sanity check', () {
