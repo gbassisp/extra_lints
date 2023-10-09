@@ -9,3 +9,4 @@ pubspec.lock
 doc/
 
 coverage/*.info-*
+coverage/*
