@@ -39,6 +39,18 @@ class InsideWidgetSpecification extends LintSpecification {
   bool isSatisfiedBy(AstNode element) => element.isWithinWidget;
 }
 
+/// Specification used in a function returning a Widget
+
+class AssertionSpecification extends LintSpecification {
+  /// Default constructor
+  AssertionSpecification();
+
+  @override
+  bool isSatisfiedBy(AstNode element) =>
+      element is Assertion ||
+      element.childEntities.any((e) => e is AstNode && isSatisfiedBy(e));
+}
+
 /// Specification: ast is a string literal used inside the definition of a
 /// widget class or in a widget class constructor, or function that returns a
 /// widget
@@ -48,19 +60,23 @@ class StringLiteralInsideWidgetSpecification extends LintSpecification {
   final _isNotImport = ImportSpecification().not();
   final _isConstructor = ConstructorSpecification();
   final _isClass = ClassSpecification();
+  final _isNotAssertion = AssertionSpecification().not();
   final _isCompilationUnit = InsideWidgetSpecification();
-  late final _specification = _isNotImport.and(
-    AnySpecification(
-      [
-        _isConstructor,
-        _isClass,
-        _isCompilationUnit,
-      ],
-    ),
-  );
+  late final _specification = _isNotAssertion.and(_isNotImport).and(
+        AnySpecification(
+          [
+            _isConstructor,
+            _isClass,
+            _isCompilationUnit,
+          ],
+        ),
+      );
 
   @override
-  bool isSatisfiedBy(AstNode element) => _specification.isSatisfiedBy(element);
+  bool isSatisfiedBy(AstNode element) {
+    print('$element ${element.runtimeType}');
+    return _specification.isSatisfiedBy(element);
+  }
 
   @override
   String toString() => '$_specification';
