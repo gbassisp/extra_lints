@@ -74,7 +74,7 @@ class StringLiteralInsideWidgetSpecification extends LintSpecification {
 
   @override
   bool isSatisfiedBy(AstNode element) {
-    print('$element ${element.runtimeType}');
+    // print('$element ${element.runtimeType}');
     return _specification.isSatisfiedBy(element);
   }
 
