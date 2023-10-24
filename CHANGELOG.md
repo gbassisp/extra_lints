@@ -1,5 +1,9 @@
 <!-- A changelog file for a dart plugin  -->
 
+## 0.1.2
+
+* Exclude assertions from analysis
+
 ## 0.1.1
 
 * Loosened some unnecessary constraints in the pubspec.yaml file.
