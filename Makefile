@@ -9,7 +9,18 @@ export PATH := $(HOME)/.pub-cache/bin:$(PATH)
 
 
 .PHONY: all
-all: version get test analyze doc
+all: version get dry-run test analyze doc
+
+.PHONY: publish
+publish: all
+	@echo "Publishing package..."
+	$(DART_CMD) pub publish --force
+
+.PHONY: dry-run
+dry-run:
+	@echo "Running dry-run..."
+	$(DART_CMD) pub publish --dry-run
+
 
 .PHONY: test
 test:
