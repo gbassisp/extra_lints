@@ -64,10 +64,32 @@ class CounterView extends StatelessWidget {
 }
 
 class CounterText extends StatelessWidget {
-  const CounterText({Key? key}) : super(key: key);
+  const CounterText({Key? key, this.deprecatedParam})
+      :
+        // this is a test case, assertions can have string on description
+        // unsure about condition (should be an enum)
+        assert(
+          deprecatedParam != 'condition should be an enum',
+          // not_expect_lint: avoid_string_literals_inside_widget
+          'assertion reason is okay, it only shows on debugging',
+        ),
+        super(key: key);
+
+  final String? deprecatedParam;
 
   @override
   Widget build(BuildContext context) {
+    // this is a test case, assertions can have string on description
+    // unsure about condition (should be an enum)
+    assert(
+      deprecatedParam != 'condition should be an enum',
+      // not_expect_lint: avoid_string_literals_inside_widget
+      'assertion reason is okay, it only shows on debugging',
+    );
+
+    // expect_lint: avoid_string_literals_inside_widget
+    const _ = 'asd';
+
     final theme = Theme.of(context);
     final count = context.select((CounterCubit cubit) => cubit.state);
     // expect_lint: avoid_string_literals_inside_widget
