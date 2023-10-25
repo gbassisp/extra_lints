@@ -59,6 +59,8 @@ class CounterView extends StatelessWidget {
           // enums should always be exhaustively tested;
           // perhaps create an extension method instead of doing this:
 
+          // simple:
+
           // expect_lint: avoid_if_with_enum
           if (enumCase == AnotherTest.a)
             const SizedBox(height: 8)
@@ -67,6 +69,20 @@ class CounterView extends StatelessWidget {
 
           // expect_lint: avoid_if_with_enum
           enumCase == AnotherTest.a
+              ? const SizedBox(height: 8)
+              : const SizedBox(height: 10),
+
+          // composed:
+
+          // expect_lint: avoid_if_with_enum
+          if (key != null && enumCase == AnotherTest.a)
+            const SizedBox(height: 8)
+          // expect_lint: avoid_if_with_enum
+          else if (enumCase == AnotherTest.b)
+            const SizedBox(height: 10),
+
+          // expect_lint: avoid_if_with_enum
+          key != null || enumCase == AnotherTest.a
               ? const SizedBox(height: 8)
               : const SizedBox(height: 10),
 
