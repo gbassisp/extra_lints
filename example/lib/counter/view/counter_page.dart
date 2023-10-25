@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_if_elements_to_conditional_expressions
+
 import 'package:example/counter/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +32,10 @@ class _SomeStatefulWidgetState extends State<SomeStatefulWidget> {
 }
 
 class CounterView extends StatelessWidget {
-  const CounterView({Key? key}) : super(key: key);
+  const CounterView({Key? key, this.enumCase = AnotherTest.a})
+      : super(key: key);
 
+  final AnotherTest enumCase;
   @override
   Widget build(BuildContext context) {
     // expect_lint: avoid_string_literals_inside_widget
@@ -52,7 +56,20 @@ class CounterView extends StatelessWidget {
             onPressed: () => context.read<CounterCubit>().increment(),
             child: const Icon(Icons.add),
           ),
-          const SizedBox(height: 8),
+          // enums should always be exhaustively tested;
+          // perhaps create an extension method instead of doing this:
+
+          // expect_lint: avoid_if_with_enum
+          if (enumCase == AnotherTest.a)
+            const SizedBox(height: 8)
+          else
+            const SizedBox(height: 10),
+
+          // expect_lint: avoid_if_with_enum
+          enumCase == AnotherTest.a
+              ? const SizedBox(height: 8)
+              : const SizedBox(height: 10),
+
           FloatingActionButton(
             onPressed: () => context.read<CounterCubit>().decrement(),
             child: const Icon(Icons.remove),
@@ -62,6 +79,8 @@ class CounterView extends StatelessWidget {
     );
   }
 }
+
+enum AnotherTest { a, b }
 
 class CounterText extends StatelessWidget {
   const CounterText({Key? key, this.deprecatedParam})
