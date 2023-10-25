@@ -1,5 +1,9 @@
 <!-- A changelog file for a dart plugin  -->
 
+## 0.2.0
+
+* Added new rule avoid_if_with_enum in order to enforce using exhaustive cases on enum
+
 ## 0.1.2
 
 * Exclude assertions from analysis
