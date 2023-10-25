@@ -35,7 +35,7 @@ class CounterView extends StatelessWidget {
   const CounterView({Key? key, this.enumCase = AnotherTest.a})
       : super(key: key);
 
-  final AnotherTest enumCase;
+  final AnotherTest? enumCase;
   @override
   Widget build(BuildContext context) {
     // expect_lint: avoid_string_literals_inside_widget
@@ -85,6 +85,10 @@ class CounterView extends StatelessWidget {
           key != null || enumCase == AnotherTest.a
               ? const SizedBox(height: 8)
               : const SizedBox(height: 10),
+
+          // checking for null is okay
+          // not_expect_lint: avoid_if_with_enum
+          if (enumCase != null) const SizedBox(),
 
           FloatingActionButton(
             onPressed: () => context.read<CounterCubit>().decrement(),
