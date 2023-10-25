@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -25,6 +27,7 @@ class _FlutterSaneLints extends PluginBase {
   @override
   List<LintRule> getLintRules(CustomLintConfigs configs) => [
         const AvoidStringLiteralsInsideWidget(),
+        const AvoidIfWithEnum(),
       ];
 }
 
@@ -84,6 +87,56 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
       );
 
       if (w != null) {
+        reporter.reportErrorForNode(code, node);
+      }
+    });
+  }
+
+  @visibleForTesting
+  @override
+  Future<List<AnalysisError>> testFile(File file) {
+    // expose this method for testing
+    // ignore: invalid_use_of_visible_for_testing_member
+    return super.testAnalyzeAndRun(file);
+  }
+}
+
+/// A [DartLintRule] that raises a warning on string literals declared inside
+/// a class that extends Widget or State, or a Widget constructor.
+class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
+  /// Default const constructor
+  const AvoidIfWithEnum() : super(code: _code);
+
+  /// Metadata about the warning that will show-up in the IDE.
+  /// This is used for `// ignore: code` and enabling/disabling the lint
+  static const _code = LintCode(
+    name: _name,
+    problemMessage: 'Enums should always be used with switch statements. '
+        'This ensures your logic is reviewed when new values are added. '
+        'Use exhaustive_cases from dart default rules as well.',
+    correctionMessage: 'Use a switch statement.',
+    errorSeverity: ErrorSeverity.WARNING,
+    uniqueName: _name,
+  );
+
+  static const _name = 'avoid_if_with_enum';
+
+  @override
+  void run(
+    CustomLintResolver resolver,
+    ErrorReporter reporter,
+    CustomLintContext context,
+  ) {
+    bool visitConditional(SyntacticEntity node) {
+      // print('$node is ${node.runtimeType}');
+      return node is AstNode &&
+          (node is SimpleIdentifier && node.staticElement is EnumElement ||
+              node.childEntities.any(visitConditional));
+    }
+
+    // if statement
+    context.registry.addIfStatement((node) {
+      if (node.condition.childEntities.any(visitConditional)) {
         reporter.reportErrorForNode(code, node);
       }
     });
