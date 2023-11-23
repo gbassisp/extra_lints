@@ -21,6 +21,10 @@ dry-run:
 	@echo "Running dry-run..."
 	$(DART_CMD) pub publish --dry-run
 
+.PHONY: kill
+kill: 
+	@echo "Killing service..."
+	@kill -9 $(shell lsof -t -i:8181) || echo "Port 8181 is not in use"
 
 .PHONY: test
 test:
