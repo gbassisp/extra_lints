@@ -25,10 +25,22 @@ class _FlutterSaneLints extends PluginBase {
   }
 
   @override
-  List<LintRule> getLintRules(CustomLintConfigs configs) => [
-        const AvoidStringLiteralsInsideWidget(),
-        const AvoidIfWithEnum(),
-      ];
+  List<LintRule> getLintRules(CustomLintConfigs configs) {
+    final enabled = configs.enableAllLintRules ?? true;
+    if (!enabled) {
+      return [];
+    }
+
+    // final rules = configs.rules;
+    // for (final element in rules.entries) {
+    //   print('${element.key}: ${element.value.json}');
+    // }
+
+    return [
+      const AvoidStringLiteralsInsideWidget(),
+      const AvoidIfWithEnum(),
+    ];
+  }
 }
 
 /// A [DartLintRule] that raises a warning on string literals declared inside
