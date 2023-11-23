@@ -1,5 +1,9 @@
 <!-- A changelog file for a dart plugin  -->
 
+## 0.2.1
+
+* Allow disabling all rules using config (only as a all or nothing at the moment)
+
 ## 0.2.0
 
 * Added new rule avoid_if_with_enum in order to enforce using exhaustive cases on enum
