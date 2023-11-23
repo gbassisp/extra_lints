@@ -46,6 +46,42 @@ analyzer:
 ---
 
 
+## Available rules
+
+At the moment this plugin contains only 2 rules:
+
+1. avoid_string_literals_inside_widget
+
+This rule is equivalent to the Android's [hard-coded string literals](https://www.jetbrains.com/help/idea/hard-coded-string-literals.html) lint.
+
+2. avoid_if_with_enum
+
+This rule is made to be used alongside the existing [exhaustive_cases](https://dart.dev/tools/linter-rules/exhaustive_cases) rule, as part of the default rules.
+
+The existing Dart rule ensures you cover all enum cases in your switch statement, which is great for future-proofing your app. However, it does not raise a warning if you are using an if statement with your enum. This is bad, because using if with enum is the same as using a switch with default:
+
+```dart
+if (myValue == MyEnum.firstOption) {
+  doSomething();
+}
+```
+
+is the same as
+
+```dart
+switch (myValue) {
+  case MyEnum.firstOption:
+    doSomething();
+  default:
+    // this default case violates exhaustive_cases
+}
+```
+
+Therefore, using if statements with enum values violate Dart's rule of performing exhaustive switch.
+
+## Future work
+
+More rules will be added in the future, but in the meantime, I am open to requests. Please go to the issues page and request for further features.
 
 
 [flutter_install_link]: https://flutter.dev/docs/get-started/install
