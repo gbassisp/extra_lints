@@ -9,7 +9,7 @@ export PATH := $(HOME)/.pub-cache/bin:$(PATH)
 
 
 .PHONY: all
-all: version get dry-run test analyze doc
+all: version get analyze dry-run test doc
 
 .PHONY: publish
 publish: all
