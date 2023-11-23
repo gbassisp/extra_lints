@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_if_elements_to_conditional_expressions
+// ignore_for_file: no_default_cases
 
 import 'package:example/counter/counter.dart';
 import 'package:flutter/material.dart';
@@ -103,17 +104,6 @@ class CounterView extends StatelessWidget {
 enum AnotherTest { a, b }
 
 class CounterText extends StatelessWidget {
-  bool enumIsA(AnotherTest value) {
-    switch (value) {
-      case AnotherTest.a:
-        return true;
-      // checking for default or exhaustive cases is not in our scope
-      // not_expect_lint: avoid_if_with_enum
-      default:
-        return false;
-    }
-  }
-
   const CounterText({Key? key, this.deprecatedParam})
       :
         // this is a test case, assertions can have string on description
@@ -126,6 +116,17 @@ class CounterText extends StatelessWidget {
         super(key: key);
 
   final String? deprecatedParam;
+
+  bool enumIsA(AnotherTest value) {
+    switch (value) {
+      case AnotherTest.a:
+        return true;
+      // checking for default or exhaustive cases is not in our scope
+      // not_expect_lint: avoid_if_with_enum
+      default:
+        return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
