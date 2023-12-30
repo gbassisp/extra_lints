@@ -148,7 +148,7 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
 
     // if statement
     context.registry.addIfStatement((node) {
-      if (node.condition.childEntities.any(visitConditional)) {
+      if (node.expression.childEntities.any(visitConditional)) {
         reporter.reportErrorForNode(code, node);
       }
     });
@@ -162,7 +162,7 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
 
     // if element
     context.registry.addIfElement((node) {
-      if (node.condition.childEntities.any(visitConditional)) {
+      if (node.expression.childEntities.any(visitConditional)) {
         reporter.reportErrorForNode(code, node);
       }
     });
