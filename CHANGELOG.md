@@ -1,5 +1,9 @@
 <!-- A changelog file for a dart plugin  -->
 
+## 0.3.0
+
+* Upgraded dependencies
+
 ## 0.2.1
 
 * Allow disabling all rules using config (only as a all or nothing at the moment)
