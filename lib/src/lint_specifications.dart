@@ -57,20 +57,21 @@ class AssertionSpecification extends LintSpecification {
 class StringLiteralInsideWidgetSpecification extends LintSpecification {
   /// Default constructor
   StringLiteralInsideWidgetSpecification();
-  final _isNotImport = ImportSpecification().not();
-  final _isConstructor = ConstructorSpecification();
-  final _isClass = ClassSpecification();
-  final _isNotAssertion = AssertionSpecification().not();
-  final _isCompilationUnit = InsideWidgetSpecification();
-  late final _specification = _isNotAssertion.and(_isNotImport).and(
-        AnySpecification(
-          [
-            _isConstructor,
-            _isClass,
-            _isCompilationUnit,
-          ],
-        ),
-      );
+  final LintSpecification _isNotImport = ImportSpecification().not();
+  final LintSpecification _isConstructor = ConstructorSpecification();
+  final LintSpecification _isClass = ClassSpecification();
+  final LintSpecification _isNotAssertion = AssertionSpecification().not();
+  final LintSpecification _isCompilationUnit = InsideWidgetSpecification();
+  late final LintSpecification _specification =
+      _isNotAssertion.and(_isNotImport).and(
+            AnySpecification(
+              [
+                _isConstructor,
+                _isClass,
+                _isCompilationUnit,
+              ],
+            ),
+          );
 
   @override
   bool isSatisfiedBy(AstNode element) {
