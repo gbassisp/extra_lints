@@ -59,7 +59,7 @@ void main() {
           final errors = await (lint as TestableDartRule).testFile(file);
           final expected =
               // ignore: avoid_dynamic_calls because it is a test suite
-              getExpectedErrorsCount(file, lint.code.name.toString());
+              getExpectedErrorsCount(file, lint.code.name);
           expect(
             errors.length,
             expected,
