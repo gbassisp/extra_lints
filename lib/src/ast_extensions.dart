@@ -25,18 +25,15 @@ extension AstParser on AstNode {
 
   /// checks if it is a FormalParameter with a static type that is a Widget
   bool get isWithinWidget {
-    return this is VariableDeclaration &&
-            ((this as VariableDeclaration)
-                    .declaredFragment
-                    ?.element
-                    .isWidgetClass ??
+    return this is Declaration &&
+            ((this as Declaration).declaredFragment?.element.isWidgetClass ??
                 false) ||
         _isWithinWidgetRecursively;
   }
 
   bool get _isWithinWidgetRecursively {
-    return this is VariableDeclaration &&
-        ((this as VariableDeclaration)
+    return this is Declaration &&
+        ((this as Declaration)
                 .declaredFragment
                 ?.element
                 ._recursiveEnclosingElementIsWidget ??
