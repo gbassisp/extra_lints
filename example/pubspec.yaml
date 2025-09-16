@@ -7,16 +7,13 @@ environment:
   sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
-  bloc: 
   flutter:
     sdk: flutter
-  flutter_bloc: 
   flutter_localizations:
     sdk: flutter
   intl:
 
 dev_dependencies:
-  bloc_test: 
   custom_lint: ^0.8.0
   flutter_sane_lints:
     path: ../
