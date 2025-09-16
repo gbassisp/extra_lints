@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:flutter_sane_lints/src/lint_specifications.dart';
@@ -52,7 +52,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
 
   /// Metadata about the warning that will show-up in the IDE.
   /// This is used for `// ignore: code` and enabling/disabling the lint
-  static const _code = LintCode(
+  static const LintCode _code = LintCode(
     name: _name,
     problemMessage: 'String literals should not be declared inside a widget '
         'class. '
@@ -89,7 +89,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
       );
 
       if (w != null) {
-        reporter.reportErrorForNode(code, node);
+        reporter.atNode(node, _code);
       }
     });
     // string interpolation registry
@@ -99,7 +99,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
       );
 
       if (w != null) {
-        reporter.reportErrorForNode(code, node);
+        reporter.atNode(node, _code);
       }
     });
   }
@@ -121,7 +121,7 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
 
   /// Metadata about the warning that will show-up in the IDE.
   /// This is used for `// ignore: code` and enabling/disabling the lint
-  static const _code = LintCode(
+  static const LintCode _code = LintCode(
     name: _name,
     problemMessage: 'Enums should always be used with switch statements. '
         'This ensures your logic is reviewed when new values are added. '
@@ -142,28 +142,28 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
     bool visitConditional(SyntacticEntity node) {
       // print('$node is ${node.runtimeType}');
       return node is AstNode &&
-          (node is SimpleIdentifier && node.staticElement is EnumElement ||
+          (node is SimpleIdentifier && node.element is EnumElement2 ||
               node.childEntities.any(visitConditional));
     }
 
     // if statement
     context.registry.addIfStatement((node) {
       if (node.expression.childEntities.any(visitConditional)) {
-        reporter.reportErrorForNode(code, node);
+        reporter.atNode(node, _code);
       }
     });
 
     // conditional expression
     context.registry.addConditionalExpression((node) {
       if (node.condition.childEntities.any(visitConditional)) {
-        reporter.reportErrorForNode(code, node);
+        reporter.atNode(node, _code);
       }
     });
 
     // if element
     context.registry.addIfElement((node) {
       if (node.expression.childEntities.any(visitConditional)) {
-        reporter.reportErrorForNode(code, node);
+        reporter.atNode(node, _code);
       }
     });
   }

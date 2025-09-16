@@ -1,3 +1,4 @@
+// example only
 // ignore_for_file: prefer_if_elements_to_conditional_expressions
 // ignore_for_file: no_default_cases
 

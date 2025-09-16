@@ -1,5 +1,9 @@
 <!-- A changelog file for a dart plugin  -->
 
+## 0.4.0
+
+* Upgraded dependencies
+
 ## 0.3.0
 
 * Upgraded dependencies

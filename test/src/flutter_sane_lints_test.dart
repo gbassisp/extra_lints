@@ -1,3 +1,4 @@
+// test suite
 // ignore_for_file: invalid_use_of_internal_member
 
 import 'dart:io';
@@ -56,7 +57,9 @@ void main() {
         for (final lint in lints) {
           expect(lint, isA<TestableDartRule>());
           final errors = await (lint as TestableDartRule).testFile(file);
-          final expected = getExpectedErrorsCount(file, lint.code.name);
+          final expected =
+              // ignore: avoid_dynamic_calls because it is a test suite
+              getExpectedErrorsCount(file, lint.code.name);
           expect(
             errors.length,
             expected,
