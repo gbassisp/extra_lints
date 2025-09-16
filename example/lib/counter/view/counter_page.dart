@@ -2,19 +2,14 @@
 // ignore_for_file: prefer_if_elements_to_conditional_expressions
 // ignore_for_file: no_default_cases
 
-import 'package:example/counter/counter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CounterCubit(),
-      child: const CounterView(),
-    );
+    return const CounterView();
   }
 }
 
@@ -55,7 +50,7 @@ class CounterView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().increment(),
+            onPressed: () {},
             child: const Icon(Icons.add),
           ),
           // enums should always be exhaustively tested;
@@ -93,7 +88,7 @@ class CounterView extends StatelessWidget {
           if (enumCase != null) const SizedBox(),
 
           FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().decrement(),
+            onPressed: () {},
             child: const Icon(Icons.remove),
           ),
         ],
@@ -143,7 +138,7 @@ class CounterText extends StatelessWidget {
     const _ = 'asd';
 
     final theme = Theme.of(context);
-    final count = context.select((CounterCubit cubit) => cubit.state);
+    const count = 1 + 2;
     // expect_lint: avoid_string_literals_inside_widget
     return Text('$count', style: theme.textTheme.displayLarge);
   }
