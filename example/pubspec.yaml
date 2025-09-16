@@ -17,7 +17,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: 
-  custom_lint:
+  custom_lint: ^0.8.0
   flutter_sane_lints:
     path: ../
   flutter_test:

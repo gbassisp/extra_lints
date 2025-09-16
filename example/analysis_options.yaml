@@ -10,8 +10,17 @@ analyzer:
 
 
 custom_lint:
+  debug: true
+  verbose: true
   rules:
     - avoid_if_with_enum:
       cool: true
       super_cool: obviously
+    # - custom_adhoc_lint:
+    #   description: "Avoid ad-hoc string literals"
+    #   severity: warning
+    #   patterns:
+    #     - "'{string}'"
+    #   excludes:
+    #     - "'Hello, World!'"
 
