@@ -1,5 +1,6 @@
 // example only
-// ignore_for_file: avoid_field_initializers_in_const_classes
+// ignore: lines_longer_than_80_chars
+// ignore_for_file: avoid_field_initializers_in_const_classes, prefer_const_declarations
 
 import 'package:example/app/app.dart';
 import 'package:example/counter/counter.dart';
@@ -20,10 +21,13 @@ class One extends StatelessWidget {
   final defaultString = 'a string';
 
   // expect_lint: avoid_string_literals_inside_widget
-  static const staticFinal = 'a string';
+  static final staticFinal = 'a string';
 
   // expect_lint: avoid_string_literals_inside_widget
   static const staticConst = 'a string';
+
+  // expect_lint: avoid_string_literals_inside_widget
+  String get magicGetter => 'a string';
 
   final String defaultValue;
 
