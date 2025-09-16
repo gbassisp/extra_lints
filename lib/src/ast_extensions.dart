@@ -27,9 +27,9 @@ extension AstParser on AstNode {
   bool get isWithinWidget {
     return this is VariableDeclaration &&
             ((this as VariableDeclaration)
-                    .declaredElement2
-                    ?.enclosingElement2
-                    ?.isWidgetClass ??
+                    .declaredFragment
+                    ?.element
+                    .isWidgetClass ??
                 false) ||
         _isWithinWidgetRecursively;
   }
@@ -37,9 +37,9 @@ extension AstParser on AstNode {
   bool get _isWithinWidgetRecursively {
     return this is VariableDeclaration &&
         ((this as VariableDeclaration)
-                .declaredElement2
-                ?.enclosingElement2
-                ?._recursiveEnclosingElementIsWidget ??
+                .declaredFragment
+                ?.element
+                ._recursiveEnclosingElementIsWidget ??
             false);
   }
 }
