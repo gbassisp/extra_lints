@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -63,7 +64,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
     correctionMessage:
         'If this is for presentation, follow Flutter guidelines on l10n. '
         'If this is for comparison, consider using an enum instead.',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
     uniqueName: _name,
   );
 
@@ -72,7 +73,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     // must be flutter project
@@ -106,7 +107,7 @@ class AvoidStringLiteralsInsideWidget extends DartLintRule
 
   @visibleForTesting
   @override
-  Future<List<AnalysisError>> testFile(File file) {
+  Future<List<Diagnostic>> testFile(File file) {
     // expose this method for testing
     // ignore: invalid_use_of_visible_for_testing_member
     return super.testAnalyzeAndRun(file);
@@ -127,7 +128,7 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
         'This ensures your logic is reviewed when new values are added. '
         'Use exhaustive_cases from dart default rules as well.',
     correctionMessage: 'Use a switch statement.',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
     uniqueName: _name,
   );
 
@@ -136,13 +137,13 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     bool visitConditional(SyntacticEntity node) {
       // print('$node is ${node.runtimeType}');
       return node is AstNode &&
-          (node is SimpleIdentifier && node.element is EnumElement2 ||
+          (node is SimpleIdentifier && node.element is EnumElement ||
               node.childEntities.any(visitConditional));
     }
 
@@ -170,7 +171,7 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
 
   @visibleForTesting
   @override
-  Future<List<AnalysisError>> testFile(File file) {
+  Future<List<Diagnostic>> testFile(File file) {
     // expose this method for testing
     // ignore: invalid_use_of_visible_for_testing_member
     return super.testAnalyzeAndRun(file);
@@ -182,5 +183,5 @@ class AvoidIfWithEnum extends DartLintRule with TestableDartRule {
 mixin TestableDartRule on DartLintRule {
   /// run the lint rule on a file
   @visibleForTesting
-  Future<List<AnalysisError>> testFile(File file);
+  Future<List<Diagnostic>> testFile(File file);
 }
